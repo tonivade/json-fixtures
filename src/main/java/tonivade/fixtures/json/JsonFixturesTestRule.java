@@ -47,7 +47,7 @@ public class JsonFixturesTestRule implements TestRule {
         };
     }
 
-    protected void loadFixtures() throws IllegalAccessException {
+    private void loadFixtures() throws IllegalAccessException {
         for (Field field : underTest.getClass().getDeclaredFields()) {
             JsonFixture annontation = field.getAnnotation(JsonFixture.class);
             if (annontation != null) {

@@ -4,21 +4,13 @@
  */
 package tonivade.fixtures.json.types;
 
-import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Set;
 
-public class SetOfType implements ParameterizedType {
-
-    private final Class<?> wrapped;
+public class SetOfType extends AbstractWrappedType {
 
     public SetOfType(Class<?> wrapped) {
-        this.wrapped = wrapped;
-    }
-
-    @Override
-    public Type[] getActualTypeArguments() {
-        return new Type[] { wrapped };
+        super(wrapped);
     }
 
     @Override
@@ -26,8 +18,4 @@ public class SetOfType implements ParameterizedType {
         return Set.class;
     }
 
-    @Override
-    public Type getOwnerType() {
-        return null;
-    }
 }
