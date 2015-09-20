@@ -32,3 +32,5 @@ Example
 
     @JsonFixture("/files/list.json")
     public Data[] dataArray;
+    
+[![Build Status](https://drone.io/github.com/tonivade/json-fixtures/status.png)](https://drone.io/github.com/tonivade/json-fixtures/latest)
