@@ -13,6 +13,7 @@ import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
@@ -47,15 +48,21 @@ public class JsonFixturesTestRule implements TestRule {
         };
     }
 
-    private void loadFixtures() throws IllegalAccessException {
-        for (Field field : underTest.getClass().getDeclaredFields()) {
-            JsonFixture annontation = field.getAnnotation(JsonFixture.class);
-            if (annontation != null) {
-                InputStream input = loadJsonFile(annontation.value());
-                Object value = loadValue(input, field.getType(), annontation.type());
-                setValue(field, value);
-            }
-        }
+    private void loadFixtures() {
+        Stream.of(underTest.getClass().getDeclaredFields())
+            .filter(this::isJsonFixture)
+                .forEach(this::loadFixture);
+    }
+
+    private boolean isJsonFixture(Field field) {
+        return field.isAnnotationPresent(JsonFixture.class);
+    }
+
+    private void loadFixture(Field field) {
+        JsonFixture annotation = field.getAnnotation(JsonFixture.class);
+        InputStream input = loadJsonFile(annotation.value());
+        Object value = loadValue(input, field.getType(), annotation.type());
+        setValue(field, value);
     }
 
     private InputStream loadJsonFile(String name) {
@@ -78,7 +85,11 @@ public class JsonFixturesTestRule implements TestRule {
         return TypeToken.get(realType).getType();
     }
 
-    private void setValue(Field field, Object value) throws IllegalAccessException {
-        field.set(underTest, value);
+    private void setValue(Field field, Object value) {
+        try {
+            field.set(underTest, value);
+        } catch (IllegalAccessException e) {
+            throw new IllegalArgumentException();
+        }
     }
 }
