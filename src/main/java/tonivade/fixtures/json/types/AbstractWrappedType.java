@@ -20,5 +20,4 @@ public abstract class AbstractWrappedType implements ParameterizedType {
     public Type getOwnerType() {
         return null;
     }
-
 }

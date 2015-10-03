@@ -93,7 +93,7 @@ public class JsonFixturesTestRule implements TestRule {
         try {
             field.set(underTest, value);
         } catch (IllegalAccessException e) {
-            throw new JsonFixtureLoaderException(field.getName());
+            throw new JsonFixtureException(field.getName());
         }
     }
 }

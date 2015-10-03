@@ -6,11 +6,11 @@ package tonivade.fixtures.json;
 
 import static java.lang.String.format;
 
-public class JsonFixtureLoaderException extends RuntimeException {
+public class JsonFixtureException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
-    public JsonFixtureLoaderException(String field) {
+    public JsonFixtureException(String field) {
         super(format("field %s is not accesible", field));
     }
 }
