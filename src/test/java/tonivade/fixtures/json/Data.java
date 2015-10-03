@@ -13,6 +13,14 @@ public class Data {
         this.value = value;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;

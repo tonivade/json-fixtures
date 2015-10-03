@@ -4,14 +4,17 @@
  */
 package tonivade.fixtures.json;
 
-import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toMap;
+import static java.util.stream.Collectors.toSet;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -36,7 +39,13 @@ public class DataTest {
     @JsonFixture("/files/list.json")
     public Data[] dataArray;
 
-    private Data[] expectedArray = new Data[] { new Data(1, "value-1"), new Data(2, "value-2"), new Data(3, "value-3") };
+    @JsonFixture(value = "/files/map.json", type = { String.class, Data.class })
+    public Map<String, Data> dataMap;
+
+    private List<Data> expectedList = IntStream.range(1, 4).mapToObj((i) -> new Data(i, "value-" + i)).collect(toList());
+    private Set<Data> expectedSet = expectedList.stream().collect(toSet());
+    private Map<String, Data> expectedMap = expectedList.stream().collect(toMap((data) -> "data" + data.getId(), (data) -> data));
+    private Data[] expectedArray = expectedList.stream().toArray((size) -> new Data[size]);
 
     @Test
     public void testData() {
@@ -45,21 +54,26 @@ public class DataTest {
 
     @Test
     public void testList() {
-        assertThat(dataList, is(asList(expectedArray)));
+        assertThat(dataList, is(expectedList));
     }
 
     @Test
     public void testSet() {
-        assertThat(dataSet, is(new HashSet<Data>(asList(expectedArray))));
+        assertThat(dataSet, is(expectedSet));
     }
 
     @Test
     public void testCollection() {
-        assertThat(dataCollection, is(asList(expectedArray)));
+        assertThat(dataCollection, is(expectedList));
     }
 
     @Test
     public void testArray() {
         assertThat(dataArray, is(expectedArray));
+    }
+
+    @Test
+    public void testMap() {
+        assertThat(dataMap, is(expectedMap));
     }
 }

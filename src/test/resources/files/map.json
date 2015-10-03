@@ -1,0 +1,14 @@
+{
+    "data1": {
+        "id": 1,
+        "value": "value-1"
+        },
+    "data2": {
+        "id": 2,
+        "value": "value-2"
+        },
+    "data3": {
+        "id": 3,
+        "value": "value-3"
+        }
+}

@@ -5,15 +5,15 @@ import java.lang.reflect.Type;
 
 public abstract class AbstractWrappedType implements ParameterizedType {
 
-    private final Class<?> wrapped;
+    private final Class<?>[] wrapped;
 
-    public AbstractWrappedType(Class<?> wrapped) {
+    public AbstractWrappedType(Class<?> ... wrapped) {
         this.wrapped = wrapped;
     }
 
     @Override
     public Type[] getActualTypeArguments() {
-        return new Type[] { wrapped };
+        return wrapped;
     }
 
     @Override

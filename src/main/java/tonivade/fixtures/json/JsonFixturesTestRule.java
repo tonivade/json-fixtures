@@ -12,6 +12,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -21,6 +22,7 @@ import org.junit.runners.model.Statement;
 
 import tonivade.fixtures.json.types.CollectionOfType;
 import tonivade.fixtures.json.types.ListOfType;
+import tonivade.fixtures.json.types.MapOfType;
 import tonivade.fixtures.json.types.SetOfType;
 
 import com.google.gson.Gson;
@@ -69,18 +71,20 @@ public class JsonFixturesTestRule implements TestRule {
         return underTest.getClass().getResourceAsStream(requireNonNull(name));
     }
 
-    private Object loadValue(InputStream input, Class<?> type, Class<?> parametizedType) {
+    private Object loadValue(InputStream input, Class<?> type, Class<?>[] parametizedType) {
         return gson.fromJson(new InputStreamReader(requireNonNull(input)), getType(type, parametizedType));
     }
 
-    private Type getType(Class<?> type, Class<?> parametizedType) {
+    private Type getType(Class<?> type, Class<?>[] parametizedType) {
         Type realType = type;
         if (List.class.isAssignableFrom(type)) {
-            realType = new ListOfType(parametizedType);
+            realType = new ListOfType(parametizedType[0]);
         } else if (Set.class.isAssignableFrom(type)) {
-            realType = new SetOfType(parametizedType);
+            realType = new SetOfType(parametizedType[0]);
         } else if (Collection.class.isAssignableFrom(type)) {
-            realType = new CollectionOfType(parametizedType);
+            realType = new CollectionOfType(parametizedType[0]);
+        } else if (Map.class.isAssignableFrom(type)) {
+            realType = new MapOfType(parametizedType[0], parametizedType[1]);
         }
         return TypeToken.get(realType).getType();
     }
@@ -89,7 +93,7 @@ public class JsonFixturesTestRule implements TestRule {
         try {
             field.set(underTest, value);
         } catch (IllegalAccessException e) {
-            throw new IllegalArgumentException();
+            throw new JsonFixtureLoaderException(field.getName());
         }
     }
 }

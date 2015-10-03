@@ -5,16 +5,16 @@
 package tonivade.fixtures.json.types;
 
 import java.lang.reflect.Type;
-import java.util.Set;
+import java.util.Map;
 
-public class SetOfType extends AbstractWrappedType {
+public class MapOfType extends AbstractWrappedType {
 
-    public SetOfType(Class<?> wrapped) {
-        super(wrapped);
+    public MapOfType(Class<?> key, Class<?> value) {
+        super(key, value);
     }
 
     @Override
     public Type getRawType() {
-        return Set.class;
+        return Map.class;
     }
 }

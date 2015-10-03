@@ -17,5 +17,4 @@ public class CollectionOfType extends AbstractWrappedType {
     public Type getRawType() {
         return Collection.class;
     }
-
 }
