@@ -27,19 +27,19 @@ public class DataTest {
     @JsonFixture("/files/data.json")
     public Data data;
 
-    @JsonFixture(value = "/files/list.json", type = Data.class)
+    @JsonFixture("/files/list.json")
     public List<Data> dataList;
 
-    @JsonFixture(value = "/files/list.json", type = Data.class)
+    @JsonFixture("/files/list.json")
     public Set<Data> dataSet;
 
-    @JsonFixture(value = "/files/list.json", type = Data.class)
+    @JsonFixture("/files/list.json")
     public Collection<Data> dataCollection;
 
     @JsonFixture("/files/list.json")
     public Data[] dataArray;
 
-    @JsonFixture(value = "/files/map.json", type = { String.class, Data.class })
+    @JsonFixture("/files/map.json")
     public Map<String, Data> dataMap;
 
     private List<Data> expectedList = IntStream.range(1, 4).mapToObj((i) -> new Data(i, "value-" + i)).collect(toList());

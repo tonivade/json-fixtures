@@ -15,5 +15,4 @@ import java.lang.annotation.Target;
 @Documented
 public @interface JsonFixture {
     String value();
-    Class<?>[] type() default {};
 }
