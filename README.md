@@ -11,7 +11,8 @@ Supported types:
     - List
     - Set
     - Collection
-    
+- Maps of Pojos
+
 Example
 -------
 
@@ -32,5 +33,8 @@ Example
 
     @JsonFixture("/files/list.json")
     public Data[] dataArray;
-    
+
+    @JsonFixture("/files/map.json")
+    public Map<String, Data> dataMap;
+
 [![Build Status](https://drone.io/github.com/tonivade/json-fixtures/status.png)](https://drone.io/github.com/tonivade/json-fixtures/latest)
