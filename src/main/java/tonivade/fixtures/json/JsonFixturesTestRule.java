@@ -72,11 +72,11 @@ public class JsonFixturesTestRule implements TestRule {
     private Type getType(Class<?> type, Type genericType) {
         Type realType = type;
         if (genericType instanceof ParameterizedType) {
-          if (Collection.class.isAssignableFrom(type)) {
-            realType = genericType;
-          } else if (Map.class.isAssignableFrom(type)) {
-            realType = genericType;
-          }
+            if (Collection.class.isAssignableFrom(type)) {
+                realType = genericType;
+            } else if (Map.class.isAssignableFrom(type)) {
+                realType = genericType;
+            }
         }
         return TypeToken.get(realType).getType();
     }
