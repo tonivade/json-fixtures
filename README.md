@@ -21,13 +21,13 @@ Example
     @JsonFixture("/files/data.json")
     public Data data;
 
-    @JsonFixture(value = "/files/list.json", type = Data.class)
+    @JsonFixture("/files/list.json")
     public List<Data> dataList;
 
-    @JsonFixture(value = "/files/list.json", type = Data.class)
+    @JsonFixture("/files/list.json")
     public Set<Data> dataSet;
 
-    @JsonFixture(value = "/files/list.json", type = Data.class)
+    @JsonFixture("/files/list.json")
     public Collection<Data> dataCollection;
 
     @JsonFixture("/files/list.json")
