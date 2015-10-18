@@ -1,5 +1,18 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'com.bmuschko.nexus'
+
+group = 'tonivade'
+version = '0.1.1'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
+    }
+}
 
 sourceSets {
     main {
@@ -29,4 +42,47 @@ dependencies {
     compile 'com.google.code.gson:gson:2.3.1'
     testCompile 'org.hamcrest:hamcrest-library:1.3'
     testCompile 'org.mockito:mockito-all:1.10.19'
+}
+
+modifyPom {
+    project {
+        name 'Json-Fixtures'
+        description 'Simple json fixtures with test rules and annotations'
+        url 'https://github.com/tonivade/json-fixtures'
+        inceptionYear '2015'
+
+        scm {
+            url 'https://github.com/tonivade/json-fixtures'
+            connection 'scm:https://github.com/tonivade/json-fixtures.git'
+            developerConnection 'scm:git://github.com/tonivade/json-fixtures.git'
+        }
+
+        licenses {
+            license {
+                name 'The MIT License (MIT)'
+                url 'https://github.com/tonivade/json-fixtures/blob/master/LICENSE'
+                distribution 'repo'
+            }
+        }
+
+        developers {
+            developer {
+                id 'tonivade'
+                name 'Antonio Muñoz'
+                email 'antoniogmc@gmail.com'
+            }
+        }
+    }
+}
+
+extraArchive {
+    sources = true
+    tests = false
+    javadoc = false
+}
+
+nexus {
+    sign = false
+    repositoryUrl = 'http://garagemarket.com.es/nexus/content/repositories/releases/'
+    snapshotRepositoryUrl = 'http://garagemarket.com.es/nexus/content/repositories/snapshots/'
 }
