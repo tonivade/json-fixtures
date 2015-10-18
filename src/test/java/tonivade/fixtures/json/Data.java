@@ -4,6 +4,8 @@
  */
 package tonivade.fixtures.json;
 
+import java.util.Objects;
+
 public class Data {
     private final int id;
     private final String value;
@@ -23,11 +25,7 @@ public class Data {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + id;
-        result = prime * result + ((value == null) ? 0 : value.hashCode());
-        return result;
+        return Objects.hash(id, value);
     }
 
     @Override
@@ -42,17 +40,7 @@ public class Data {
             return false;
         }
         Data other = (Data) obj;
-        if (id != other.id) {
-            return false;
-        }
-        if (value == null) {
-            if (other.value != null) {
-                return false;
-            }
-        } else if (!value.equals(other.value)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.id, other.id) && Objects.equals(this.value, other.value);
     }
 
     @Override
