@@ -2,8 +2,9 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'com.bmuschko.nexus'
 
-group = 'tonivade'
-version = '0.1.1'
+group = 'com.github.tonivade'
+archivesBaseName = 'json-fixtures'
+version = '0.2.0-SNAPSHOT'
 
 buildscript {
     repositories {
@@ -78,11 +79,11 @@ modifyPom {
 extraArchive {
     sources = true
     tests = false
-    javadoc = false
+    javadoc = true
 }
 
 nexus {
-    sign = false
-    repositoryUrl = 'http://garagemarket.com.es/nexus/content/repositories/releases/'
-    snapshotRepositoryUrl = 'http://garagemarket.com.es/nexus/content/repositories/snapshots/'
+    sign = true
+    epositoryUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
+    snapshotRepositoryUrl = 'https://oss.sonatype.org/content/repositories/snapshots'
 }
